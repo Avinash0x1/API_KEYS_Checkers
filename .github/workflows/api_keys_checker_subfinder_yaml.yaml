@@ -1,0 +1,96 @@
+name: ☣️ Check || API Health 🇨🇭 (Subfinder Provider Config YAML)
+# Alt: 
+#MAX_RUNTIME: ~ 05-10 Mins
+
+on:
+  workflow_dispatch: # Whenever manually run from actions-tab
+  schedule:
+    - cron: "30 04 * * *" #  ( 04:30 AM UTC --> 10:15 AM Morning )
+#------------------------------------------------------------------------------------#  
+env:
+  # DO NOT MODIFY ANYTHING ELSE
+  INVENTORY_REPO_USER: "${{ secrets.INVENTORY_REPO_USER }}"
+  INVENTORY_REPO_TOKEN: "${{ secrets.INVENTORY_REPO_TOKEN }}"
+#------------------------------------------------------------------------------------#
+jobs:
+  Validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 69696969696969  
+    permissions:
+      contents: write
+      
+    steps:        
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          path: main  
+
+      - name: Install Coreutils
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          sudo apt update -y
+          sudo apt install coreutils curl dos2unix jq moreutils wget -y
+          pip install ansi2txt
+          # Do again, sometimes fails
+          sudo apt install coreutils curl dos2unix jq moreutils wget -y
+          pip install ansi2txt
+          # For TG BOT Notifs
+          pip install apprise 
+          pip install apprise 2>/dev/null
+          # For neofetch
+          pip install archey4
+          pip install archey4 2>/dev/null
+        continue-on-error: true
+
+      - name: Install eget
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          # eget for bins
+          sudo wget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/eget" -O "/usr/local/bin/eget"
+          sudo chmod +xwr "/usr/local/bin/eget"
+        continue-on-error: false
+
+      - name: Install Deps for aki
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          #aki
+          sudo eget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/aki/scripts/aki_subfinder_provider_config_yaml_checker.sh" --to "/usr/local/bin/aki"
+          sudo chmod +xwr "/usr/local/bin/aki" ; aki -h
+          #anew
+          sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/anew" --to "/usr/local/bin/anew"
+          anew -h
+          #yq
+          sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/yq" --to "/usr/local/bin/yq"
+          sudo chmod +xwr "/usr/local/bin/yq"
+          yq -h
+        continue-on-error: true
+     
+      - name: Download & Run Checker
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          # Download
+          curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/Azathothas/Inventory/main/.github/scripts/aki_subfinder_provider_config_yaml_checker.sh" -o "./aki_subfinder_provider_config_yaml_checker.sh"
+          # Dos2unix
+          dos2unix "./aki_subfinder_provider_config_yaml_checker.sh"
+          # chmod +xwr
+          sudo chmod +xwr "./aki_subfinder_provider_config_yaml_checker.sh"
+          # Run
+          # Always run with STD_OUT + STD_IN >/dev/null
+          bash "./aki_subfinder_provider_config_yaml_checker.sh" >/dev/null 2>&1
+        continue-on-error: true
+
+      - name: Upload logs as 7z Archive 
+        #if: env.GIT_PUSH_FAILED == 'true' 
+        uses: actions/upload-artifact@v3
+        with:
+            name: aki_logs_output
+            path: |
+              /tmp/aki.7z
