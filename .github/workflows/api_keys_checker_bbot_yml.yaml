@@ -50,7 +50,7 @@ jobs:
           set -x ; set +e
           #--------------#
           # eget for bins
-          sudo wget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/eget" -O "/usr/local/bin/eget"
+          sudo wget "https://bin.prashansa.com.np/x86_64_Linux/eget" -O "/usr/local/bin/eget"
           sudo chmod +xwr "/usr/local/bin/eget"
         continue-on-error: false
 
@@ -63,10 +63,10 @@ jobs:
           sudo eget "https://raw.githubusercontent.com/Azathothas/Arsenal/main/aki/scripts/aki_bbot_secrets_yml_checker.sh" --to "/usr/local/bin/aki"
           sudo chmod +xwr "/usr/local/bin/aki" ; aki -h
           #anew
-          sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/anew" --to "/usr/local/bin/anew"
+          sudo eget "https://bin.prashansa.com.np/x86_64_Linux/anew" --to "/usr/local/bin/anew"
           anew -h
           #yq
-          sudo eget "https://raw.githubusercontent.com/Azathothas/Toolpacks/main/x86_64/yq" --to "/usr/local/bin/yq"
+          sudo eget "https://bin.prashansa.com.np/x86_64_Linux/yq" --to "/usr/local/bin/yq"
           sudo chmod +xwr "/usr/local/bin/yq"
           yq -h
         continue-on-error: true
