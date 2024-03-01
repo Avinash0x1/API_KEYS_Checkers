@@ -64,7 +64,9 @@ jobs:
           sudo chmod +xwr "/usr/local/bin/aki" ; aki -h
           #anew
           sudo eget "https://bin.ajam.dev/x86_64_Linux/anew" --to "/usr/local/bin/anew"
-          anew -h
+          #anew-rs
+          sudo eget "https://bin.ajam.dev/x86_64_Linux/anew-rs" --to "/usr/local/bin/anew-rs"
+          anew-rs -h
           #yq
           sudo eget "https://bin.ajam.dev/x86_64_Linux/yq" --to "/usr/local/bin/yq"
           sudo chmod +xwr "/usr/local/bin/yq"
