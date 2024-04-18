@@ -83,6 +83,15 @@ jobs:
           pip install archey4 --upgrade --break-system-packages 2>/dev/null
         continue-on-error: true
 
+      - name: Install Addons & Deps
+        run: |
+          # Presets
+          set -x ; set +e
+          #--------------#
+          #Run
+          bash <(curl -qfsSL "https://pub.ajam.dev/repos/Azathothas/Arsenal/misc/Linux/Debian/install_bb_tools_x86_64.sh")
+        continue-on-error: true
+
       - name: Install Deps for aki
         run: |
           # Presets
