@@ -42,7 +42,7 @@ jobs:
           #--------------#
           ##Pre-Exec (INIT)
           curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/Azathothas/Inventory/main/.github/scripts/_init_deps.sh" -o "./_init_deps.sh"
-          dos2unix --quiet "./_init_deps.sh" 2>/dev/null ; sudo chmod +xwr "./_init_deps.sh" ; source "./_init_deps.sh"
+          dos2unix --quiet "./_init_deps.sh" 2>/dev/null ; sudo chmod +xwr "./_init_deps.sh" ; source "./_init_deps.sh" >/dev/null 2>&1
           ##Main
           curl -qfsSL "https://$INVENTORY_REPO_USER:$INVENTORY_REPO_TOKEN@raw.githubusercontent.com/Azathothas/Inventory/main/.github/scripts/aki_bbot_secrets_yml_checker.sh" -o "./aki_bbot_secrets_yml_checker.sh"
           dos2unix --quiet "./aki_bbot_secrets_yml_checker.sh" ; sudo chmod +xwr "./aki_bbot_secrets_yml_checker.sh"
