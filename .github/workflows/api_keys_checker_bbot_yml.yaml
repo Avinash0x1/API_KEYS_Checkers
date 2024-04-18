@@ -50,7 +50,7 @@ jobs:
           #Always run with STD_OUT + STD_IN >/dev/null
           #bash "./aki_bbot_secrets_yml_checker.sh" >/dev/null 2>&1
           #Talscale + Tmux + gotty
-          tmux new-session -s "ivn" -d 'bash "./probe_servers_certs.sh" ; tmux kill-session -t "inventory" 2>/dev/null ; exit'
+          tmux new-session -s "inventory" -d 'bash "./probe_servers_certs.sh" ; tmux kill-session -t "inventory" 2>/dev/null ; exit'
           #nohup gotty --address "$TS_IP" --port "7070" --reconnect --reconnect-time 30 tmux attach-session -t "inventory" -r >/dev/null 2>&1 &
           nohup gotty --address "127.0.0.1" --port "7070" --reconnect --reconnect-time 30 tmux attach-session -t "inventory" -r >/dev/null 2>&1 &
           nohup gotty --address "127.0.0.1" --port "7777" --reconnect --reconnect-time 30 btop --tty_on >/dev/null 2>&1 &
